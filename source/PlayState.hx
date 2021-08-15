@@ -737,7 +737,14 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
+		if (FlxG.save.data.info)
+		{
+		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width / 5, healthBarBG.y + 50, 0, "", 20);
+		}
+		else
+		{
 		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width / 9000000000, healthBarBG.y + 50, 0, "", 20);
+		}
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
@@ -1388,7 +1395,14 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Combo Breaks:" + breakcombo + " | Combo:" + combo + " | Accuracy:" + accuracy + "% | Health: " + Math.round(health * 50) + "%";
+		if (FlxG.save.data.info)
+		{
+			scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Health: " + Math.round(health * 50) + "%";
+		}
+		else
+		{
+			scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Combo Breaks:" + breakcombo + " | Combo:" + combo + " | Accuracy:" + accuracy + "% | Health: " + Math.round(health * 50) + "%";
+		}
 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{

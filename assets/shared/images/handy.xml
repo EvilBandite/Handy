@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="handy.png">
+	<!-- Created with Adobe Animate version 21.0.4.39603 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="down0000" x="0" y="0" width="634" height="669"/>
+	<SubTexture name="down0001" x="0" y="669" width="634" height="629" frameX="0" frameY="-20" frameWidth="634" frameHeight="669"/>
+	<SubTexture name="idle0000" x="479" y="1344" width="460" height="588"/>
+	<SubTexture name="left0000" x="634" y="0" width="558" height="684"/>
+	<SubTexture name="left0001" x="634" y="684" width="558" height="660" frameX="0" frameY="-12" frameWidth="558" frameHeight="684"/>
+	<SubTexture name="right0000" x="0" y="1298" width="479" height="583"/>
+	<SubTexture name="right0001" x="939" y="1344" width="479" height="555" frameX="0" frameY="-14" frameWidth="479" frameHeight="583"/>
+	<SubTexture name="up0000" x="1418" y="1104" width="469" height="537" frameX="0" frameY="-8" frameWidth="469" frameHeight="553"/>
+	<SubTexture name="up0001" x="1192" y="0" width="469" height="553"/>
+	<SubTexture name="up0002" x="1192" y="553" width="469" height="551" frameX="0" frameY="-1" frameWidth="469" frameHeight="553"/>
+</TextureAtlas>

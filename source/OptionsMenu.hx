@@ -25,7 +25,7 @@ class OptionsMenu extends MusicBeatState
 	override function create()
 	{
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.InputSystem ? "New input" : "Old Input") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off') + "\nFlipped Arrows " + (FlxG.save.data.flipped ? "on" : "off") + "\nAlt Arrows " + (FlxG.save.data.notes2 ? "on" : "off"));
+		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.InputSystem ? "New input on" : "New input off") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off') + "\nFlipped Arrows " + (FlxG.save.data.flipped ? "on" : "off") + "\nAlt Arrows " + (FlxG.save.data.notes2 ? "on" : "off") + "\nInfo " + (FlxG.save.data.info ? "off" : "on"));
 		
 		trace(controlsStrings);
 
@@ -98,7 +98,7 @@ class OptionsMenu extends MusicBeatState
 						
 					case 1:
 						FlxG.save.data.InputSystem = !FlxG.save.data.InputSystem;
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.InputSystem ? "New input" : "Old Input"), true, false);
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.InputSystem ? "New input on" : "New input off"), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 1;
 						grpControls.add(ctrl);
@@ -119,6 +119,12 @@ class OptionsMenu extends MusicBeatState
 						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Alt Arrows " + (FlxG.save.data.notes2 ? "on" : "off"), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 4;
+						grpControls.add(ctrl);
+					case 5:
+						FlxG.save.data.info = !FlxG.save.data.info;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Info " + (FlxG.save.data.info ? "off" : "on"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 5;
 						grpControls.add(ctrl);
 				}
 			}

@@ -25,7 +25,7 @@ class OptionsMenu extends MusicBeatState
 	override function create()
 	{
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.InputSystem ? "New input on" : "New input off") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off') + "\nFlipped Arrows " + (FlxG.save.data.flipped ? "on" : "off") + "\nAlt Arrows " + (FlxG.save.data.notes2 ? "on" : "off") + "\nInfo " + (FlxG.save.data.info ? "off" : "on"));
+		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.InputSystem ? "New input on" : "New input off") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off') + "\nFlipped Arrows " + (FlxG.save.data.flipped ? "on" : "off") + "\nAlt Arrows " + (FlxG.save.data.notes2 ? "on" : "off") + "\nInfo " + (FlxG.save.data.info ? "off" : "on") + "\nMII MODE " + (FlxG.save.data.mii ? "on" : "off"));
 		
 		trace(controlsStrings);
 
@@ -125,6 +125,12 @@ class OptionsMenu extends MusicBeatState
 						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Info " + (FlxG.save.data.info ? "off" : "on"), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 5;
+						grpControls.add(ctrl);
+					case 6:
+						FlxG.save.data.mii = !FlxG.save.data.mii;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "MII MODE " + (FlxG.save.data.mii ? "on" : "off"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 6;
 						grpControls.add(ctrl);
 				}
 			}

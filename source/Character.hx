@@ -132,11 +132,23 @@ class Character extends FlxSprite
 				animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24);
 				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24);
 
-				addOffset('idle');
-				addOffset("singUP", -6, 50);
-				addOffset("singRIGHT", 0, 27);
-				addOffset("singLEFT", -10, 10);
-				addOffset("singDOWN", 0, -30);
+				if (isPlayer)
+				{
+					addOffset('idle', 6, 0);
+					addOffset("singUP", -4, 50);
+					addOffset("singRIGHT", -30, 17);
+					addOffset("singLEFT", 53, 34);
+					addOffset("singDOWN", 50, -26);
+				}
+				else
+				{
+					addOffset('idle');
+					addOffset("singUP", -6, 50);
+					addOffset("singRIGHT", 0, 27);
+					addOffset("singLEFT", -10, 10);
+					addOffset("singDOWN", 0, -30);
+				}
+
 
 				playAnim('idle');
 			case 'handy':
@@ -282,7 +294,14 @@ class Character extends FlxSprite
 				flipX = true;
 
 			case 'bf':
-				var tex = Paths.getSparrowAtlas('BOYFRIEND');
+				if (FlxG.save.data.mii)
+				{
+					tex = Paths.getSparrowAtlas('BOYFRIENDMII');
+				}
+				else
+				{
+					tex = Paths.getSparrowAtlas('BOYFRIEND');
+				}
 				frames = tex;
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
 				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);

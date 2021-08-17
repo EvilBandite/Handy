@@ -24,7 +24,7 @@ class OptionsMenu extends MusicBeatState
 	var versionShit:FlxText;
 	override function create()
 	{
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGMagenta'));
 		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.InputSystem ? "New input on" : "New input off") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off') + "\nFlipped Arrows " + (FlxG.save.data.flipped ? "on" : "off") + "\nAlt Arrows " + (FlxG.save.data.notes2 ? "on" : "off") + "\nInfo " + (FlxG.save.data.info ? "off" : "on") + "\nMII MODE " + (FlxG.save.data.mii ? "on" : "off"));
 		
 		trace(controlsStrings);

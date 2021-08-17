@@ -41,6 +41,7 @@ import lime.utils.Assets;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
+import lime.app.Application;
 
 using StringTools;
 
@@ -119,6 +120,9 @@ class PlayState extends MusicBeatState
 	var accuracy:Float = 100;
 	var breakcombo:Int = 0;
 	var scoreTxt:FlxText;
+	var songNameTxt:FlxText;
+	var engineversionTxt:FlxText;
+	var DifficultyTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
 
@@ -728,6 +732,27 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
+		DifficultyTxt = new FlxText(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y + 26, 0, "", 20);
+			DifficultyTxt.y = healthBarBG.y - 18;
+		DifficultyTxt.setFormat("assets/fonts/vcr.ttf", 22, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		DifficultyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		DifficultyTxt.scrollFactor.set();
+		add(DifficultyTxt);
+
+		songNameTxt = new FlxText(DifficultyTxt.x, DifficultyTxt.y - 26, 0, "", 20);
+			songNameTxt.y = DifficultyTxt.y + 26;
+		songNameTxt.setFormat("assets/fonts/vcr.ttf", 22, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		songNameTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		songNameTxt.scrollFactor.set();
+		add(songNameTxt);
+
+		engineversionTxt = new FlxText(songNameTxt.x, songNameTxt.y - 26, 0, "", 20);
+			engineversionTxt.y = songNameTxt.y + 26;
+		engineversionTxt.setFormat("assets/fonts/vcr.ttf", 22, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		engineversionTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		engineversionTxt.scrollFactor.set();
+		add(engineversionTxt);
+
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -743,6 +768,9 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		DifficultyTxt.cameras = [camHUD];
+		engineversionTxt.cameras = [camHUD];
+		songNameTxt.cameras = [camHUD];		
 		doof.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
@@ -773,7 +801,7 @@ class PlayState extends MusicBeatState
 
 		super.create();
 	}
-
+	
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{
 		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
@@ -1350,6 +1378,9 @@ class PlayState extends MusicBeatState
 			scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Combo Breaks:" + breakcombo + " | Combo:" + combo + " | Accuracy:" + accuracy + "% | Health: " + Math.round(health * 50) + "%";
 		}
 
+		DifficultyTxt.text = "Difficulty:" + CoolUtil.difficultyFromInt(storyDifficulty); 
+		songNameTxt.text = "Song:" + SONG.song; 
+		engineversionTxt.text = "Engine Version:" + Application.current.meta.get('version'); 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
@@ -2210,7 +2241,7 @@ class PlayState extends MusicBeatState
 
 			songScore -= 10;
 
-			accuracy -= 0.09;
+			accuracy -= 0.01;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
@@ -2294,7 +2325,7 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('singRIGHT', true);
 			}
 
-			accuracy += 0.09;
+			accuracy += 0.01;
 
 			playerStrums.forEach(function(spr:FlxSprite)
 			{

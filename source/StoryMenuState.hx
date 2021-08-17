@@ -26,7 +26,7 @@ class StoryMenuState extends MusicBeatState
 		['Handy']
 	];
 	var weekText:Array<Dynamic> = [
-		['Handy', 'Builder', 'BLOOD HAMMER', 'HIM....']
+		['Handy', 'Builder Blood', 'Hammer', 'HIM....']
 	];
 	var curDifficulty:Int = 1;
 

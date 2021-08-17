@@ -79,6 +79,8 @@ class PlayState extends MusicBeatState
 	private var camZooming:Bool = false;
 	private var curSong:String = "";
 
+	var fc:Bool = true;
+
 	private var gfSpeed:Int = 1;
 	private var health:Float = 1;
 	private var combo:Int = 0;
@@ -93,6 +95,8 @@ class PlayState extends MusicBeatState
 	private var iconP2:HealthIcon;
 	private var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
+	private var totalNotesHit:Float = 0;
+	private var totalPlayed:Int = 0;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 
@@ -117,7 +121,7 @@ class PlayState extends MusicBeatState
 	var talking:Bool = true;
 	var songScore:Int = 0;
 	var misses:Int = 0;
-	var accuracy:Float = 100;
+	var accuracy:Float = 0.00;
 	var breakcombo:Int = 0;
 	var scoreTxt:FlxText;
 	var songNameTxt:FlxText;
@@ -801,7 +805,29 @@ class PlayState extends MusicBeatState
 
 		super.create();
 	}
-	
+
+	function truncateFloat( number : Float, precision : Int): Float {
+		var num = number;
+		num = num * Math.pow(10, precision);
+		num = Math.round( num ) / Math.pow(10, precision);
+		return num;
+		}
+
+	function updateAccuracy()
+		{
+			if (misses > 0 || accuracy < 96)
+				fc = false;
+			else
+				fc = true;
+			accuracy += 0.01;
+			totalPlayed += 1;
+			accuracy = totalNotesHit / totalPlayed * 100;
+		}
+	function updateAccuracybad()
+		{
+			accuracy -= 0.01;
+			accuracy = totalNotesHit / totalPlayed * 100;
+		}
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{
 		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
@@ -1371,7 +1397,7 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.save.data.info)
 		{
-			scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Health: " + Math.round(health * 50) + "%";
+			scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Combo:" + combo + " | Health: " + Math.round(health * 50) + "%";
 		}
 		else
 		{
@@ -1843,21 +1869,25 @@ class PlayState extends MusicBeatState
 		{
 			daRating = 'shit';
 			score = 50;
+			accuracy -= 1;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'bad';
 			score = 100;
+			accuracy -= 0.10;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.2)
 		{
 			daRating = 'good';
 			score = 200;
+			accuracy += 0.10;
 		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.2)
+		if (daRating == 'sick')
 		{
 			daRating = 'sick';
-			score = 200;
+			score = 300;
+			accuracy += 1;
 		}
 
 		songScore += score;
@@ -2177,8 +2207,6 @@ class PlayState extends MusicBeatState
 	function noteMiss(direction:Int = 1):Void
 	if (FlxG.save.data.InputSystem)
 	{
-		if (!boyfriend.stunned)
-		{
 			switch (direction)
 			{
 				case 0:
@@ -2190,7 +2218,6 @@ class PlayState extends MusicBeatState
 				case 3:
 					boyfriend.playAnim('singRIGHT', true);
 			}
-		}
 	}
 	else
 	{

@@ -165,7 +165,7 @@ class Character extends FlxSprite
 
 				playAnim('idle');
 				
-				flipX = true;
+				//flipX = true;
 			case 'spooky':
 				tex = Paths.getSparrowAtlas('spooky_kids_assets');
 				frames = tex;

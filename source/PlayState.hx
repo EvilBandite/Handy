@@ -53,6 +53,7 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+	private var earlyinput:Int = 0;
 
 	var halloweenLevel:Bool = false;
 
@@ -125,6 +126,7 @@ class PlayState extends MusicBeatState
 	var breakcombo:Int = 0;
 	var scoreTxt:FlxText;
 	var songNameTxt:FlxText;
+	var EarlyTxt:FlxText;
 	var engineversionTxt:FlxText;
 	var DifficultyTxt:FlxText;
 
@@ -757,6 +759,14 @@ class PlayState extends MusicBeatState
 		engineversionTxt.scrollFactor.set();
 		add(engineversionTxt);
 
+		EarlyTxt = new FlxText(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y + 50, 0, "", 20);
+			EarlyTxt.y = healthBarBG.y - 50;
+		EarlyTxt.setFormat("assets/fonts/vcr.ttf", 22, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		EarlyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		EarlyTxt.scrollFactor.set();
+		if (FlxG.save.data.InputSystem)
+		add(EarlyTxt);
+
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -772,6 +782,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		EarlyTxt.cameras = [camHUD];
 		DifficultyTxt.cameras = [camHUD];
 		engineversionTxt.cameras = [camHUD];
 		songNameTxt.cameras = [camHUD];		
@@ -1407,6 +1418,7 @@ class PlayState extends MusicBeatState
 		DifficultyTxt.text = "Difficulty:" + CoolUtil.difficultyFromInt(storyDifficulty); 
 		songNameTxt.text = "Song:" + SONG.song; 
 		engineversionTxt.text = "Engine Version:" + Application.current.meta.get('version'); 
+		EarlyTxt.text = "Early Inputs:" + earlyinput; 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
@@ -1466,10 +1478,8 @@ class PlayState extends MusicBeatState
 		/* if (FlxG.keys.justPressed.NINE)
 			FlxG.switchState(new Charting()); */
 
-		#if debug
 		if (FlxG.keys.justPressed.EIGHT)
 			FlxG.switchState(new AnimationDebug(SONG.player2));
-		#end
 
 		if (startingSong)
 		{
@@ -2207,6 +2217,7 @@ class PlayState extends MusicBeatState
 	function noteMiss(direction:Int = 1):Void
 	if (FlxG.save.data.InputSystem)
 	{
+		earlyinput += 1;
 			switch (direction)
 			{
 				case 0:

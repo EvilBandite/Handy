@@ -83,6 +83,9 @@ enum Control
 enum KeyboardScheme
 {
 	Solo;
+	qwop;
+	ghkl;
+	asdf;
 	Duo(first:Bool);
 	None;
 	Custom;
@@ -506,6 +509,33 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 				inline bindKeys(Control.RESET, [R]);
+			case qwop:
+				inline bindKeys(Control.UP, [O, FlxKey.UP]);
+				inline bindKeys(Control.DOWN, [W, FlxKey.DOWN]);
+				inline bindKeys(Control.LEFT, [Q, FlxKey.LEFT]);
+				inline bindKeys(Control.RIGHT, [P, FlxKey.RIGHT]);
+				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
+				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
+				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
+				inline bindKeys(Control.RESET, [R]);
+			case ghkl:
+				inline bindKeys(Control.UP, [K, FlxKey.UP]);
+				inline bindKeys(Control.DOWN, [H, FlxKey.DOWN]);
+				inline bindKeys(Control.LEFT, [G, FlxKey.LEFT]);
+				inline bindKeys(Control.RIGHT, [L, FlxKey.RIGHT]);
+				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
+				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
+				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
+				inline bindKeys(Control.RESET, [R]);
+			case asdf:
+				inline bindKeys(Control.UP, [D, FlxKey.UP]);
+				inline bindKeys(Control.DOWN, [S, FlxKey.DOWN]);
+				inline bindKeys(Control.LEFT, [A, FlxKey.LEFT]);
+				inline bindKeys(Control.RIGHT, [F, FlxKey.RIGHT]);
+				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
+				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
+				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
+				inline bindKeys(Control.RESET, [R]);
 			case Duo(true):
 				inline bindKeys(Control.UP, [W, FlxKey.UP]);
 				inline bindKeys(Control.DOWN, [S, FlxKey.DOWN]);
@@ -534,6 +564,33 @@ class Controls extends FlxActionSet
 				bindKeys(Control.DOWN, [S, FlxKey.DOWN]);
 				bindKeys(Control.LEFT, [A, FlxKey.LEFT]);
 				bindKeys(Control.RIGHT, [D, FlxKey.RIGHT]);
+				bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
+				bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
+				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
+				bindKeys(Control.RESET, [R]);
+			case qwop:
+				bindKeys(Control.UP, [O, FlxKey.UP]);
+				bindKeys(Control.DOWN, [W, FlxKey.DOWN]);
+				bindKeys(Control.LEFT, [Q, FlxKey.LEFT]);
+				bindKeys(Control.RIGHT, [P, FlxKey.RIGHT]);
+				bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
+				bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
+				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
+				bindKeys(Control.RESET, [R]);
+			case ghkl:
+				bindKeys(Control.UP, [K, FlxKey.UP]);
+				bindKeys(Control.DOWN, [H, FlxKey.DOWN]);
+				bindKeys(Control.LEFT, [G, FlxKey.LEFT]);
+				bindKeys(Control.RIGHT, [L, FlxKey.RIGHT]);
+				bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
+				bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
+				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
+				bindKeys(Control.RESET, [R]);
+			case asdf:
+				bindKeys(Control.UP, [D, FlxKey.UP]);
+				bindKeys(Control.DOWN, [S, FlxKey.DOWN]);
+				bindKeys(Control.LEFT, [A, FlxKey.LEFT]);
+				bindKeys(Control.RIGHT, [F, FlxKey.RIGHT]);
 				bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
 				bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);

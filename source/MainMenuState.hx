@@ -103,6 +103,12 @@ class MainMenuState extends MusicBeatState
 
 		if (FlxG.save.data.dfjk)
 			controls.setKeyboardScheme(KeyboardScheme.Solo, true);
+		else if (FlxG.save.data.qwop)
+			controls.setKeyboardScheme(KeyboardScheme.qwop, true);
+		else if (FlxG.save.data.ghkl)
+			controls.setKeyboardScheme(KeyboardScheme.ghkl, true);
+		else if (FlxG.save.data.asdf)
+			controls.setKeyboardScheme(KeyboardScheme.asdf, true);
 		else
 			controls.setKeyboardScheme(KeyboardScheme.Duo(true), true);
 

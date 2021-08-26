@@ -122,9 +122,11 @@ class PlayState extends MusicBeatState
 	var talking:Bool = true;
 	var songScore:Int = 0;
 	var misses:Int = 0;
-	var accuracy:Float = 0.00;
+	var accuracy:Float = 100;
 	var breakcombo:Int = 0;
 	var scoreTxt:FlxText;
+	var healthTxt:FlxText;
+	var accuracyTxt:FlxText;
 	var songNameTxt:FlxText;
 	var EarlyTxt:FlxText;
 	var engineversionTxt:FlxText;
@@ -598,6 +600,9 @@ class PlayState extends MusicBeatState
 				camPos.x += 400;
 			case 'handy':
 				camPos.x += 600;
+				dad.y += 100;
+			case 'petunia':
+				camPos.x += 600;
 				dad.y += 200;
 			case 'pico':
 				camPos.x += 600;
@@ -722,21 +727,35 @@ class PlayState extends MusicBeatState
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.createFilledBar(0xFFED8921, 0xFF31B0D1);
+		if (dad.curCharacter == 'handy')
+		{		
+			healthBar.createFilledBar(0xFFF38B23, 0xFF31B0D1);
+		}
+		else if (dad.curCharacter == 'petunia')
+		{		
+			healthBar.createFilledBar(0xFF1F71EE, 0xFF31B0D1);
+		}
+		else
+		{		
+			healthBar.createFilledBar(0xFF404040, 0xFF31B0D1);
+		}
 		// healthBar
 		add(healthBar);
 
 		if (FlxG.save.data.info)
 		{
-		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width / 5, healthBarBG.y + 50, 0, "", 20);
+		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 90, healthBarBG.y + 30, 0, "", 200);
+		scoreTxt.setFormat("assets/fonts/vcr.ttf", 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
 		}
 		else
 		{
 		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width / 9000000000, healthBarBG.y + 50, 0, "", 20);
-		}
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
+		}
 
 		DifficultyTxt = new FlxText(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y + 26, 0, "", 20);
 			DifficultyTxt.y = healthBarBG.y - 18;
@@ -744,6 +763,14 @@ class PlayState extends MusicBeatState
 		DifficultyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
 		DifficultyTxt.scrollFactor.set();
 		add(DifficultyTxt);
+
+		healthTxt = new FlxText(healthBarBG.x + healthBarBG.width - 300, healthBarBG.y + 30, 0, "", 200);
+		healthTxt.setFormat("assets/fonts/vcr.ttf", 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		healthTxt.scrollFactor.set();
+
+		accuracyTxt = new FlxText(healthBarBG.x, healthBarBG.y + 30, 0, "", 200);
+		accuracyTxt.setFormat("assets/fonts/vcr.ttf", 20, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		accuracyTxt.scrollFactor.set();
 
 		songNameTxt = new FlxText(DifficultyTxt.x, DifficultyTxt.y - 26, 0, "", 20);
 			songNameTxt.y = DifficultyTxt.y + 26;
@@ -783,10 +810,17 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		EarlyTxt.cameras = [camHUD];
+		healthTxt.cameras = [camHUD];
+		accuracyTxt.cameras = [camHUD];
 		DifficultyTxt.cameras = [camHUD];
 		engineversionTxt.cameras = [camHUD];
 		songNameTxt.cameras = [camHUD];		
 		doof.cameras = [camHUD];
+
+		if (FlxG.save.data.info)
+		add(healthTxt);
+		if (FlxG.save.data.info)
+		add(accuracyTxt);
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1408,7 +1442,9 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.save.data.info)
 		{
-			scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Combo:" + combo + " | Health: " + Math.round(health * 50) + "%";
+			healthTxt.text = "Health:" + Math.round(health * 50) + "%";
+			accuracyTxt.text = "Accuracy:" + accuracy + "%";
+			scoreTxt.text = "Score:" + songScore + "     Misses:" + misses;
 		}
 		else
 		{
@@ -1464,6 +1500,9 @@ class PlayState extends MusicBeatState
 
 		if (health > 2)
 			health = 2;
+
+		if (accuracy > 100)
+			accuracy = 100;
 
 		if (healthBar.percent < 20)
 			iconP1.animation.curAnim.curFrame = 1;
@@ -1612,12 +1651,6 @@ class PlayState extends MusicBeatState
 		// better streaming of shit
 
 		// RESET = Quick Game Over Screen
-		if (controls.RESET)
-		{
-			health = 0;
-			trace("RESET = True");
-		}
-
 		// CHEAT = brandon's a pussy
 		if (controls.CHEAT)
 		{
@@ -2236,7 +2269,6 @@ class PlayState extends MusicBeatState
 		{
 			health -= 0.04;
 
-			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
 

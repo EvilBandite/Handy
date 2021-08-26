@@ -25,7 +25,7 @@ class OptionsMenu extends MusicBeatState
 	override function create()
 	{
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGMagenta'));
-		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK' : 'WASD') + "\n" + (FlxG.save.data.InputSystem ? "New input on" : "New input off") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off') + "\nFlipped Arrows " + (FlxG.save.data.flipped ? "on" : "off") + "\nAlt Arrows " + (FlxG.save.data.notes2 ? "on" : "off") + "\nInfo " + (FlxG.save.data.info ? "off" : "on") + "\nMII MODE " + (FlxG.save.data.mii ? "on" : "off"));
+		controlsStrings = CoolUtil.coolStringFile((FlxG.save.data.dfjk ? 'DFJK scheme on' : 'DFJK scheme off') + "\n" + (FlxG.save.data.qwop ? 'QWOP scheme on' : 'QWOP scheme off') + "\n" + (FlxG.save.data.ghkl ? 'GHKL scheme on' : 'GHKL scheme off') + "\n" + (FlxG.save.data.asdf ? 'ASDF scheme on' : 'ASDF scheme off') + "\n" + (FlxG.save.data.InputSystem ? "New input on" : "New input off") + "\n" + (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off') + "\nFlipped Arrows " + (FlxG.save.data.flipped ? "on" : "off") + "\nAlt Arrows " + (FlxG.save.data.notes2 ? "on" : "off") + "\nInfo System " + (FlxG.save.data.info ? "modding plus" : "new") + "\nMII MODE " + (FlxG.save.data.mii ? "on" : "off"));
 		
 		trace(controlsStrings);
 
@@ -87,50 +87,107 @@ class OptionsMenu extends MusicBeatState
 				{
 					case 0:
 						FlxG.save.data.dfjk = !FlxG.save.data.dfjk;
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.dfjk ? 'DFJK' : 'WASD'), true, false);
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.dfjk ? 'DFJK scheme on' : 'DFJK scheme off'), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected;
 						grpControls.add(ctrl);
 						if (FlxG.save.data.dfjk)
 							controls.setKeyboardScheme(KeyboardScheme.Solo, true);
+						else if (FlxG.save.data.qwop)
+							controls.setKeyboardScheme(KeyboardScheme.qwop, true);
+						else if (FlxG.save.data.ghkl)
+							controls.setKeyboardScheme(KeyboardScheme.ghkl, true);
+						else if (FlxG.save.data.asdf)
+							controls.setKeyboardScheme(KeyboardScheme.asdf, true);
 						else
 							controls.setKeyboardScheme(KeyboardScheme.Duo(true), true);
-						
+
 					case 1:
-						FlxG.save.data.InputSystem = !FlxG.save.data.InputSystem;
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.InputSystem ? "New input on" : "New input off"), true, false);
+						FlxG.save.data.qwop = !FlxG.save.data.qwop;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.qwop ? 'QWOP scheme on' : 'QWOP scheme off'), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 1;
 						grpControls.add(ctrl);
+						if (FlxG.save.data.dfjk)
+							controls.setKeyboardScheme(KeyboardScheme.Solo, true);
+						else if (FlxG.save.data.qwop)
+							controls.setKeyboardScheme(KeyboardScheme.qwop, true);
+						else if (FlxG.save.data.ghkl)
+							controls.setKeyboardScheme(KeyboardScheme.ghkl, true);
+						else if (FlxG.save.data.asdf)
+							controls.setKeyboardScheme(KeyboardScheme.asdf, true);
+						else
+							controls.setKeyboardScheme(KeyboardScheme.Duo(true), true);
+
 					case 2:
-						FlxG.save.data.downscroll = !FlxG.save.data.downscroll;
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off'), true, false);
+						FlxG.save.data.ghkl = !FlxG.save.data.ghkl;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.ghkl ? 'GHKL scheme on' : 'GHKL scheme off'), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 2;
 						grpControls.add(ctrl);
+						if (FlxG.save.data.dfjk)
+							controls.setKeyboardScheme(KeyboardScheme.Solo, true);
+						else if (FlxG.save.data.qwop)
+							controls.setKeyboardScheme(KeyboardScheme.qwop, true);
+						else if (FlxG.save.data.ghkl)
+							controls.setKeyboardScheme(KeyboardScheme.ghkl, true);
+						else if (FlxG.save.data.asdf)
+							controls.setKeyboardScheme(KeyboardScheme.asdf, true);
+						else
+							controls.setKeyboardScheme(KeyboardScheme.Duo(true), true);
+
 					case 3:
-						FlxG.save.data.flipped = !FlxG.save.data.flipped;
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Flipped Arrows " + (FlxG.save.data.flipped ? "on" : "off"), true, false);
+						FlxG.save.data.asdf = !FlxG.save.data.asdf;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.asdf ? 'ASDF scheme on' : 'ASDF scheme off'), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 3;
 						grpControls.add(ctrl);
+						if (FlxG.save.data.dfjk)
+							controls.setKeyboardScheme(KeyboardScheme.Solo, true);
+						else if (FlxG.save.data.qwop)
+							controls.setKeyboardScheme(KeyboardScheme.qwop, true);
+						else if (FlxG.save.data.ghkl)
+							controls.setKeyboardScheme(KeyboardScheme.ghkl, true);
+						else if (FlxG.save.data.asdf)
+							controls.setKeyboardScheme(KeyboardScheme.asdf, true);
+						else
+							controls.setKeyboardScheme(KeyboardScheme.Duo(true), true);
+						
 					case 4:
-						FlxG.save.data.notes2 = !FlxG.save.data.notes2;
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Alt Arrows " + (FlxG.save.data.notes2 ? "on" : "off"), true, false);
+						FlxG.save.data.InputSystem = !FlxG.save.data.InputSystem;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.InputSystem ? "New input on" : "New input off"), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 4;
 						grpControls.add(ctrl);
 					case 5:
-						FlxG.save.data.info = !FlxG.save.data.info;
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Info " + (FlxG.save.data.info ? "off" : "on"), true, false);
+						FlxG.save.data.downscroll = !FlxG.save.data.downscroll;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, (FlxG.save.data.downscroll ? 'Downscroll on' : 'Downscroll off'), true, false);
 						ctrl.isMenuItem = true;
 						ctrl.targetY = curSelected - 5;
 						grpControls.add(ctrl);
 					case 6:
+						FlxG.save.data.flipped = !FlxG.save.data.flipped;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Flipped Arrows " + (FlxG.save.data.flipped ? "on" : "off"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 6;
+						grpControls.add(ctrl);
+					case 7:
+						FlxG.save.data.notes2 = !FlxG.save.data.notes2;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Alt Arrows " + (FlxG.save.data.notes2 ? "on" : "off"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 7;
+						grpControls.add(ctrl);
+					case 8:
+						FlxG.save.data.info = !FlxG.save.data.info;
+						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "Info System " + (FlxG.save.data.info ? "modding plus" : "new"), true, false);
+						ctrl.isMenuItem = true;
+						ctrl.targetY = curSelected - 8;
+						grpControls.add(ctrl);
+					case 9:
 						FlxG.save.data.mii = !FlxG.save.data.mii;
 						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, "MII MODE " + (FlxG.save.data.mii ? "on" : "off"), true, false);
 						ctrl.isMenuItem = true;
-						ctrl.targetY = curSelected - 6;
+						ctrl.targetY = curSelected - 9;
 						grpControls.add(ctrl);
 				}
 			}

@@ -144,7 +144,7 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate')
+				if (optionShit[curSelected] == 'credits')
 				{
 					#if linux
 					Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin/donate", "&"]);
@@ -185,6 +185,9 @@ class MainMenuState extends MusicBeatState
 									case 'freeplay':
 										FlxG.switchState(new FreeplayState());
 										trace("Freeplay Menu Selected");
+									case 'donate':
+										FlxG.switchState(new CreditsState());
+										trace("Credits Menu Selected");
 									case 'options':
 										FlxG.switchState(new OptionsMenu());
 										trace("Options Menu Selected");
